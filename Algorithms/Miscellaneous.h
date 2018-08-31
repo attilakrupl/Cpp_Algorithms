@@ -20,21 +20,24 @@ public:
 	*	\return the number of possible triangles
 	*/
 	template<size_t N>
-	int CountTrianglesInArray(array<int, N> T)
+	int CountTrianglesInArray(array<int, N> T) noexcept
 	{
 		int count{ 0 };
-		sort(T.begin(), T.end(), [](int a, int b) { return a < b; });
 
-		for (size_t iSmallest = 0; iSmallest < N - 2; ++iSmallest)
+		if (N > 2)
 		{
-			for (size_t iMiddle = iSmallest + 1; iMiddle < N - 1; ++iMiddle)
+			sort(T.begin(), T.end(), [](int a, int b) { return a < b; });
+			for (size_t iSmallest = 0; iSmallest < N - 2; ++iSmallest)
 			{
-				size_t iGreatest = iMiddle + 1;
-				while ( (iGreatest < N) && (T[iMiddle] + T[iSmallest] > T[iGreatest]))
+				for (size_t iMiddle = iSmallest + 1; iMiddle < N - 1; ++iMiddle)
 				{
-					++iGreatest;
+					size_t iGreatest = iMiddle + 1;
+					while ( (iGreatest < N) && (T[iMiddle] + T[iSmallest] > T[iGreatest]))
+					{
+						++iGreatest;
+					}
+					count += iGreatest - iMiddle - 1;
 				}
-				count += iGreatest - iMiddle - 1;
 			}
 		}
 		return count;
