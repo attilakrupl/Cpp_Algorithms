@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "Miscellaneous.h"
+#include "Base.h"
 
 using std::cout;
 using std::endl;
@@ -23,5 +24,10 @@ int main(int argc, char** argv)
 	cout << misc.CountTrianglesInArray<SIZE_2>(arr2) << endl;
 	cout << misc.CountTrianglesInArray<SIZE_3>(arr3) << endl;
 	cout << misc.CountTrianglesInArray<SIZE_4>(arr4) << endl;
+
+    drkrBase::Timer lTimer;
+    lTimer.setInterval( [] { std::cout << "Interval passed" << std::endl; }, 3000 );
+    lTimer.setTimeout( [] { std::cout << "Timeout passed" << std::endl; }, 13000 );
+
 	return 0;
 }
